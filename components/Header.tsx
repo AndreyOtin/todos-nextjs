@@ -3,7 +3,6 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { cn } from '@/lib/utils';
 import { Loader2, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 
 type HeaderProps = {
   className?: string;
@@ -25,7 +24,7 @@ const Header = ({ className }: HeaderProps) => {
       <div className="container mx-auto text-white flex-1 flex items-center p-2">
         <p className={'italic font-bold text-2xl'}>Todos</p>
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
           }}
           className={'flex gap-x-2 items-center ml-auto'}
@@ -35,10 +34,9 @@ const Header = ({ className }: HeaderProps) => {
             {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
           </label>
           <input
-            onClick={async (e) => {
-              e.preventDefault();
+            onClick={async () => {
               setIsLoading(true);
-              await axios.delete('/api/todos');
+              await fetch('/api/todos', { method: 'DELETE' });
               startTransition(() => {
                 router.refresh();
               });
@@ -55,10 +53,9 @@ const Header = ({ className }: HeaderProps) => {
             {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
           </label>
           <input
-            onClick={async (e) => {
-              e.preventDefault();
+            onClick={async () => {
               setIsLoading(true);
-              await axios.put('/api/todos');
+              await fetch('/api/todos', { method: 'PUT' });
               startTransition(() => {
                 router.refresh();
               });

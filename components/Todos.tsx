@@ -11,7 +11,7 @@ type TodosProps = {
 
 const Todos = async ({ className }: TodosProps) => {
   let todos = await redis.get<List>('todos');
-  console.log(todos);
+
   if (!todos) {
     const data = await db.todo.findMany();
     const sortedTodos: List = {

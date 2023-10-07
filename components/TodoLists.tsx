@@ -6,7 +6,6 @@ import { useStore } from '@/store/app';
 import Image from 'next/image';
 import { Type } from '@prisma/client';
 import { DragDropContext, Draggable, Droppable, OnDragEndResponder } from '@hello-pangea/dnd';
-import axios from 'axios';
 
 type TodoListProps = {
   className?: string;
@@ -28,7 +27,7 @@ const TodoLists = ({ className, todos }: TodoListProps) => {
     setList(todos);
   }, [todos]);
 
-  const handleDragEnd: OnDragEndResponder = async (result) => {
+  const handleDragEnd: OnDragEndResponder = (result) => {
     if (!result.destination) {
       return;
     }
@@ -47,7 +46,10 @@ const TodoLists = ({ className, todos }: TodoListProps) => {
     }
 
     setList(stateCopy);
-    await axios.patch('/api/todos', stateCopy);
+    void fetch('/api/todos', {
+      method: 'PATCH',
+      body: JSON.stringify(stateCopy)
+    });
   };
 
   return (
