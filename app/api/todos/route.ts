@@ -31,20 +31,22 @@ export const PATCH = async (req: NextRequest) => {
 
   await redis.set('todos', list);
 
-  Object.keys(list).forEach((k) => {
-    list[k as Type].forEach(async (t) => {
-      await db.todo.update({
-        where: {
-          id: t.id
-        },
-        data: {
-          type: t.type
-        }
+  const result = await Promise.all(
+    Object.keys(list).flatMap((k) => {
+      return list[k as Type].map((t) => {
+        return db.todo.update({
+          where: {
+            id: t.id
+          },
+          data: {
+            type: t.type
+          }
+        });
       });
-    });
-  });
+    })
+  );
 
-  return NextResponse.json('ok');
+  return NextResponse.json(result);
 };
 
 export const DELETE = async () => {
