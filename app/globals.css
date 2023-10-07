@@ -2,26 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    --radix-collapsible-content-height: 0;
+    --radix-toast-swipe-end-x: 0;
+    --radix-toast-swipe-move-x: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+
+@layer utilities {
+    .col-anim-down {
+        overflow: hidden;
+        animation: slideDown 500ms ease-out;
+    }
+
+    .col-anim-up {
+        overflow: hidden;
+        animation: slideUp 500ms ease-out;
+    }
+
+    .ToastRoot[data-swipe='move'] {
+        transform: translateX(var(--radix-toast-swipe-move-x));
+    }
+
+    .ToastRoot[data-swipe='cancel'] {
+        transform: translateX(0);
+        transition: transform 200ms ease-out;
+    }
+
+    .ToastRoot[data-swipe='end'] {
+        animation: slideRight 1000ms ease-out;
+    }
+
+
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+
+@keyframes slideDown {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--radix-collapsible-content-height);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        height: var(--radix-collapsible-content-height);
+    }
+    to {
+        height: 0;
+    }
+}
+
+
+@keyframes slideRight {
+    from {
+        transform: translateX(var(--radix-toast-swipe-end-x));
+    }
+    to {
+        transform: translateX(1000%);
+    }
 }

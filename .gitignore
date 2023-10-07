@@ -18,6 +18,8 @@
 # misc
 .DS_Store
 *.pem
+*.xml
+*.idea
 
 # debug
 npm-debug.log*
@@ -26,6 +28,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
