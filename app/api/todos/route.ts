@@ -53,3 +53,35 @@ export const DELETE = async () => {
 
   return NextResponse.json('ok');
 };
+
+export const PUT = async () => {
+  await redis.getdel('todos');
+  await db.todo.deleteMany();
+  await db.todo.createMany({
+    data: [
+      {
+        type: 'ALL',
+        text: 'Что то нужно сделать...',
+        date: new Date(),
+        title: 'Тудушка 1',
+        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+      },
+      {
+        type: 'INPROGRESS',
+        text: 'Начинаем...',
+        date: new Date(),
+        title: 'Тудушка 2',
+        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+      },
+      {
+        type: 'DONE',
+        text: 'Сделано!',
+        date: new Date(),
+        title: 'Тудушка 3',
+        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+      }
+    ]
+  });
+
+  return NextResponse.json('ok');
+};

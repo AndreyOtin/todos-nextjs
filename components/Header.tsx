@@ -26,11 +26,6 @@ const Header = ({ className }: HeaderProps) => {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            setIsLoading(true);
-            await fetch('/api/todos', { method: 'DELETE' });
-            startTransition(() => {
-              router.refresh();
-            });
           }}
           action="#"
           className={'flex gap-x-2 items-center ml-auto'}
@@ -40,11 +35,37 @@ const Header = ({ className }: HeaderProps) => {
             {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
           </label>
           <input
+            onClick={async () => {
+              setIsLoading(true);
+              await fetch('/api/todos', { method: 'DELETE' });
+              startTransition(() => {
+                router.refresh();
+              });
+            }}
             disabled={isPending || isLoading}
             type={'submit'}
             defaultValue={'Удалить все'}
             id={'trash'}
-            className={'min-w-[40%] text-white p-2 cursor-pointer rounded '}
+            className={'text-white cursor-pointer rounded p-0'}
+            placeholder={''}
+          />
+          <label htmlFor="clean" className={'cursor-pointer'}>
+            <span className={'sr-only'}>Очистить</span>
+            {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
+          </label>
+          <input
+            onClick={async () => {
+              setIsLoading(true);
+              await fetch('/api/todos', { method: 'PUT' });
+              startTransition(() => {
+                router.refresh();
+              });
+            }}
+            disabled={isPending || isLoading}
+            type={'submit'}
+            defaultValue={'Очистить'}
+            id={'clean'}
+            className={'text-white cursor-pointer rounded p-0'}
             placeholder={''}
           />
         </form>

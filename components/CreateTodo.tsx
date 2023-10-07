@@ -124,7 +124,7 @@ const CreateTodo = ({ className }: CreateTodoProps) => {
       <Collapsible open={isFormOpen} onOpenChange={setIsFormOpen}>
         <h2 className={'text-xl font-bold'}>Создать тудушку</h2>
         <CollapsibleTrigger>
-          <Mouse className={cn(isFormOpen && 'text-pink-200')} />
+          <Mouse className={cn(isFormOpen && 'text-pink-200', 'hover:text-pink-200')} />
         </CollapsibleTrigger>
         <CollapsibleContent className={cn(isFormOpen ? 'col-anim-down' : 'col-anim-up')}>
           <form
