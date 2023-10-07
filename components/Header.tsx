@@ -3,6 +3,7 @@ import React, { useEffect, useState, useTransition } from 'react';
 import { cn } from '@/lib/utils';
 import { Loader2, Trash } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 type HeaderProps = {
   className?: string;
@@ -24,10 +25,9 @@ const Header = ({ className }: HeaderProps) => {
       <div className="container mx-auto text-white flex-1 flex items-center p-2">
         <p className={'italic font-bold text-2xl'}>Todos</p>
         <form
-          onSubmit={async (e) => {
+          onSubmit={(e) => {
             e.preventDefault();
           }}
-          action="#"
           className={'flex gap-x-2 items-center ml-auto'}
         >
           <label htmlFor="trash" className={'cursor-pointer'}>
@@ -35,9 +35,10 @@ const Header = ({ className }: HeaderProps) => {
             {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
           </label>
           <input
-            onClick={async () => {
+            onClick={async (e) => {
+              e.preventDefault();
               setIsLoading(true);
-              await fetch('/api/todos', { method: 'DELETE' });
+              await axios.delete('/api/todos');
               startTransition(() => {
                 router.refresh();
               });
@@ -54,9 +55,10 @@ const Header = ({ className }: HeaderProps) => {
             {isPending || isLoading ? <Loader2 className={'animate-spin'} /> : <Trash />}
           </label>
           <input
-            onClick={async () => {
+            onClick={async (e) => {
+              e.preventDefault();
               setIsLoading(true);
-              await fetch('/api/todos', { method: 'PUT' });
+              await axios.put('/api/todos');
               startTransition(() => {
                 router.refresh();
               });

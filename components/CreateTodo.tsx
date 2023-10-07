@@ -12,6 +12,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@radix-ui/r
 
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 
 type CreateTodoProps = {
   className?: string;
@@ -85,22 +86,15 @@ const CreateTodo = ({ className }: CreateTodoProps) => {
         data.image = res.url;
       }
 
-      const response = await fetch('/api/todos', {
-        method: 'POST',
-        body: JSON.stringify(data)
-      });
+      await axios.post('/api/todos', data);
 
-      if (response.ok) {
-        setFile(null);
-        setImage('');
-        setStartDate(null);
-        form.reset();
-        startTransition(() => {
-          router.refresh();
-        });
-      } else {
-        await Promise.reject();
-      }
+      setFile(null);
+      setImage('');
+      setStartDate(null);
+      form.reset();
+      startTransition(() => {
+        router.refresh();
+      });
     } catch (e) {
       setIsLoading(false);
 
