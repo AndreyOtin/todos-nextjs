@@ -66,21 +66,21 @@ export const PUT = async () => {
         text: 'Что то нужно сделать...',
         date: new Date(),
         title: 'Тудушка 1',
-        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+        image: 'https://utfs.io/f/9fc1383e-bda3-480c-be5e-69ac16f78d40-7mitzj.jpg'
       },
       {
         type: 'INPROGRESS',
         text: 'Начинаем...',
         date: new Date(),
         title: 'Тудушка 2',
-        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+        image: 'https://utfs.io/f/9fc1383e-bda3-480c-be5e-69ac16f78d40-7mitzj.jpg'
       },
       {
         type: 'DONE',
         text: 'Сделано!',
         date: new Date(),
         title: 'Тудушка 3',
-        image: 'https://utfs.io/f/b144a97a-3f23-4e49-8171-9f1c9e8de3de-2x.webp'
+        image: 'https://utfs.io/f/9fc1383e-bda3-480c-be5e-69ac16f78d40-7mitzj.jpg'
       }
     ]
   });

@@ -96,7 +96,12 @@ const TodoLists = ({ className, todos }: TodoListProps) => {
                           </h3>
                           {t.image && (
                             <div className={'relative h-[140px] w-full'}>
-                              <Image src={t.image} fill alt={'photo'}></Image>
+                              <Image
+                                src={t.image}
+                                className={'object-cover'}
+                                fill
+                                alt={'photo'}
+                              ></Image>
                             </div>
                           )}
                           <p
